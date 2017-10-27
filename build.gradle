@@ -1,0 +1,93 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'maven'
+apply plugin: 'jacoco'
+
+compileJava.options.encoding = 'UTF-8'
+version = '1.b' + BUILD_NUMBER
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+sourceSets {
+    main.java.srcDirs = ['src/main/java']
+    main.groovy.srcDirs = ['src/main/java']
+    test.groovy.srcDirs = ['src/test/java']
+}
+
+jar {
+    baseName = 'developer'
+}
+
+repositories {
+    mavenLocal()
+
+    maven {
+        url "http://repo1.maven.org/maven2"
+    }
+
+    maven {
+        url "http://maven.twttr.com/"
+    }
+}
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+}
+
+processResources {
+    def now = ((Long) (new Date().time / 1000)).toString()
+    filesMatching('**/*.properties') {
+        filter(ReplaceTokens, tokens: [
+                'project.version'   : version,
+                'project.buildtime' : now])
+    }
+}
+
+dependencies {
+    //spring dependencies
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+        exclude module:'spring-boot-starter-jetty'
+    }
+    compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-freemarker:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-actuator:${springBootVersion}")
+
+    compile("org.springframework.session:spring-session:${springSessionVersion}")
+    compile("org.springframework.session:spring-session-data-redis:${springSessionVersion}")
+
+    //other dependencies
+    compile "org.postgresql:postgresql:9.3-1102-jdbc41"
+    compile "javax.mail:mail:1.4.1"
+    compile "org.imgscalr:imgscalr-lib:4.2"
+    compile "commons-io:commons-io:2.4"
+    compile 'org.freemarker:freemarker:2.3.23'
+
+    compile "ch.qos.logback:logback-classic:1.1.6"
+    compile "ch.qos.logback:logback-core:1.1.6"
+
+    //tests
+    testCompile "junit:junit:4.11"
+    testCompile "cglib:cglib:2.2.2"
+
+    testCompile "org.spockframework:spock-core:${spockVersion}"
+    testCompile "org.spockframework:spock-spring:${spockVersion}"
+    testCompile "org.springframework:spring-test:${springVersion}"
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+}
+
+bootRun {
+    addResources = true
+}

@@ -1,5 +1,8 @@
 package nz.co.kiwimovie;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -29,6 +32,14 @@ public class Application {
     @ConfigurationProperties(prefix="datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    public ObjectMapper mapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return mapper;
     }
 
 }

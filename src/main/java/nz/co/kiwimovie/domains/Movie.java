@@ -9,11 +9,12 @@ public class Movie {
     private UUID idCinema;
     private String title;
     private Date time;
-    private String description;
     private String imdb;
     private String imdbLink;
     private Date created;
     private Date updated;
+    private String plot;
+    private String poster;
 
     public UUID getId() {
         return id;
@@ -47,14 +48,6 @@ public class Movie {
         this.time = time;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getImdb() {
         return imdb;
     }
@@ -85,5 +78,37 @@ public class Movie {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public Movie copy() {
+        Movie newMovie = new Movie();
+        newMovie.setId(id);
+        newMovie.setIdCinema(idCinema);
+        newMovie.setTitle(title);
+        newMovie.setTime(time);
+        newMovie.setImdb(imdb);
+        newMovie.setImdbLink(imdbLink);
+        newMovie.setCreated(created);
+        newMovie.setUpdated(updated);
+        newMovie.setPlot(plot);
+        newMovie.setPoster(poster);
+
+        return newMovie;
     }
 }

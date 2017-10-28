@@ -1,5 +1,7 @@
 package nz.co.kiwimovie.domains;
 
+import nz.co.kiwimovie.Cinemas;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,6 +15,8 @@ public class Cinema {
     private String status;
     private Date created;
     private Date updated;
+    private Cinemas cinemaType;
+    private String website;
 
     public UUID getId() {
         return id;
@@ -76,5 +80,21 @@ public class Cinema {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public Cinemas getCinemaType() {
+        return cinemaType;
+    }
+
+    public void setCinemaType(Cinemas cinemaType) {
+        this.cinemaType = cinemaType;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

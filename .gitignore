@@ -1,0 +1,11 @@
+.git
+.idea
+.idea/*
+.gradle
+/build/
+kiwimovie-server.iml
+*.swp
+/.project
+/.classpath
+/.settnigs/
+

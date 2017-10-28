@@ -73,7 +73,10 @@ dependencies {
     compile "javax.mail:mail:1.4.1"
     compile "org.imgscalr:imgscalr-lib:4.2"
     compile "commons-io:commons-io:2.4"
-    compile 'org.freemarker:freemarker:2.3.23'
+    compile "commons-lang:commons-lang:2.6"
+    compile "org.freemarker:freemarker:2.3.23"
+    compile "org.jsoup:jsoup:1.10.3"
+    compile "us.codecraft:xsoup:0.3.1"
 
     compile "ch.qos.logback:logback-classic:1.1.6"
     compile "ch.qos.logback:logback-core:1.1.6"
